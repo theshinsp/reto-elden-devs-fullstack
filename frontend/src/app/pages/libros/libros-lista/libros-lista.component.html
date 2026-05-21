@@ -1,0 +1,55 @@
+<div class="container">
+
+  <div *ngIf="mensaje()" class="alert alert-success">✅ {{ mensaje() }}</div>
+  <div *ngIf="error()"   class="alert alert-error">⚠️ {{ error() }}</div>
+
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <h2 class="page-title" style="margin:0;">📖 Libros <span class="badge badge-green">{{ totalLibros() }}</span></h2>
+      <a routerLink="/libros/nuevo" class="btn btn-primary">+ Nuevo Libro</a>
+    </div>
+
+    <div *ngIf="cargando()" class="loading">Cargando libros...</div>
+
+    <div *ngIf="!cargando() && libros().length === 0" class="empty">
+      <span>📭</span>
+      <p>No hay libros registrados todavía.</p>
+      <a routerLink="/libros/nuevo" class="btn btn-primary" style="margin-top:16px;">+ Añadir el primero</a>
+    </div>
+
+    <div *ngIf="!cargando() && libros().length > 0" class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Género</th>
+            <th>Año</th>
+            <th>ISBN</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let libro of libros()">
+            <td style="color:#a0aec0; font-size:.85rem;">{{ libro.id }}</td>
+            <td><strong>{{ libro.titulo }}</strong></td>
+            <td>{{ getNombreAutor(libro.autorId) }}</td>
+            <td><span class="badge badge-green">{{ libro.genero }}</span></td>
+            <td>{{ libro.anioPublicacion }}</td>
+            <td style="font-size:.82rem; color:#718096;">{{ libro.isbn }}</td>
+            <td>
+              <div class="actions">
+                <a [routerLink]="['/libros/editar', libro.id]"
+                   class="btn btn-sm btn-secondary">Editar</a>
+                <button class="btn btn-danger"
+                        (click)="eliminar(libro.id!)">Eliminar</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

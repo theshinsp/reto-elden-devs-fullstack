@@ -1,11 +1,9 @@
-import type { Categoria } from './categoria.model';
-
 export interface Libro {
-  id: number;
-  titulo: string;
-  autor: string;
-  isbn: string;
+  id?:          number;
+  titulo:       string;
   anioPublicacion: number;
-  disponible: boolean;
-  categoria: Categoria;
+  genero:       string;
+  isbn:         string;
+  autorId:      number;
+  autorNombre?: string; // campo calculado para mostrar en la vista
 }

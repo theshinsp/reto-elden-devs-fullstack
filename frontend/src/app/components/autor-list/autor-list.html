@@ -1,0 +1,20 @@
+<div class="container">
+
+  <h2>Lista de Autores</h2>
+
+  @for (autor of autores(); track autor.id) {
+
+    <div class="card">
+
+      <h3>{{ autor.nombre }}</h3>
+
+      <p>
+        Nacionalidad:
+        {{ autor.nacionalidad }}
+      </p>
+
+    </div>
+
+  }
+
+</div>

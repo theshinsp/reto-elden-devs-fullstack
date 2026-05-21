@@ -183,3 +183,18 @@ El proyecto fue generado con `start.spring.io` usando Spring Boot 4.0.6, que es 
 
 ### 9. Angular 19 a 21 — migración de dependencias
 El frontend se generó inicialmente con Angular 19, pero los requisitos pedían Angular 21. Al hacer `npm install @angular/core@21`, se producían conflictos porque `@angular-devkit/build-angular` (v19) seguía presente y no era compatible con Angular 21. Se solucionó eliminando `@angular-devkit/build-angular`, moviendo `@angular/build` a `devDependencies`, y actualizando el `angular.json` para usar los builders `@angular/build:application` y `@angular/build:dev-server` en lugar de los antiguos `@angular-devkit/build-angular:*`. Tras una instalación limpia, todas las dependencias quedaron en Angular 21.2.14.
+
+---
+
+## Posibles mejoras (no implementadas)
+
+Consultamos a una IA qué mejoras podría tener el proyecto y estas son las sugerencias que nos dio, aunque no las hemos implementado por falta de tiempo:
+
+- **Capa de servicios en el backend**: Separar la lógica de negocio de los controladores creando servicios intermedios (`AutorService`, `LibroService`) en lugar de llamar a los repositorios directamente desde los controladores.
+- **DTOs (Data Transfer Objects)**: Crear objetos específicos para las peticiones y respuestas de la API en lugar de exponer las entidades JPA directamente, mejorando la seguridad y el control sobre los datos devueltos.
+- **Manejo global de errores**: Implementar `@ControllerAdvice` para centralizar el manejo de excepciones y devolver respuestas uniformes en caso de error.
+- **Búsqueda y filtros**: Añadir un campo de búsqueda para filtrar libros por título, autor o género, y filtros por año de publicación.
+- **Paginación**: Implementar paginación en los listados de autores y libros para mejorar el rendimiento con muchos registros.
+- **Seguridad básica**: Añadir autenticación con login y protección de rutas mediante guards en Angular.
+- **Limpieza de código muerto**: El componente `components/autor-list/` contiene datos hardcodeados y no está integrado en el enrutador; se podría eliminar o convertir en un componente reutilizable.
+- **Pruebas**: Añadir tests unitarios y de integración tanto en frontend (Jasmine/Karma) como en backend (JUnit).

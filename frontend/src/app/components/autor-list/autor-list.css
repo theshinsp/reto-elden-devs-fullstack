@@ -1,0 +1,19 @@
+.container {
+  width: 500px;
+  margin: 40px auto;
+}
+
+.card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
+
+h2 {
+  text-align: center;
+}
+
+h3 {
+  margin: 0;
+}

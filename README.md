@@ -13,6 +13,54 @@ Aplicación web de gestión de biblioteca con Angular 21 + Spring Boot 4 + H2.
 
 ---
 
+## Estructura del proyecto
+
+```
+reto-elden-devs-fullstack/
+│
+├── backend/                              # Spring Boot 4 (Java 21)
+│   └── src/main/
+│       ├── java/com/reto/eldendevs/
+│       │   ├── DemoApplication.java      # Punto de entrada de la aplicación
+│       │   ├── config/
+│       │   │   └── CorsConfig.java       # Configuración CORS (localhost:4200)
+│       │   ├── controller/
+│       │   │   ├── AutorController.java  # CRUD /api/autores
+│       │   │   └── LibroController.java  # CRUD /api/libros
+│       │   ├── model/
+│       │   │   ├── Autor.java            # Entidad Autor (1) con @OneToMany
+│       │   │   └── Libro.java            # Entidad Libro (M) con @ManyToOne
+│       │   └── repository/
+│       │       ├── AutorRepository.java  # Acceso a BD de autores
+│       │       └── LibroRepository.java  # Acceso a BD de libros
+│       └── resources/
+│           ├── application.yaml          # Config: H2, JPA, consola H2
+│           └── import.sql                # Datos de ejemplo (3 autores, 5 libros)
+│
+├── frontend/                             # Angular 21 (TypeScript)
+│   └── src/app/
+│       ├── app.component.ts              # Componente raíz (navbar + router-outlet)
+│       ├── app.config.ts                 # Proveedores: HttpClient, Router
+│       ├── app.routes.ts                 # 6 rutas con lazy loading
+│       ├── models/
+│       │   ├── autor.model.ts            # Interface Autor
+│       │   └── libro.model.ts            # Interface Libro
+│       ├── services/
+│       │   ├── autor.service.ts          # Llamadas HTTP a /api/autores
+│       │   └── libro.service.ts          # Llamadas HTTP a /api/libros
+│       └── pages/
+│           ├── autores/
+│           │   ├── autores-lista/        # Listado de autores (Signals, tabla)
+│           │   └── autores-form/         # Formulario crear/editar autor
+│           └── libros/
+│               ├── libros-lista/         # Listado de libros (Signals, tabla)
+│               └── libros-form/          # Formulario crear/editar libro
+│
+└── README.md                             # Documentación del proyecto
+```
+
+---
+
 ## Requisitos previos
 
 - **Java 21** (JDK) — necesario para el backend

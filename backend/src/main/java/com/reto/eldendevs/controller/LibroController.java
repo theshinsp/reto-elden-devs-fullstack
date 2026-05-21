@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/libros")
-@CrossOrigin(origins = "http://localhost:4200")
 public class LibroController {
 
     @Autowired
@@ -26,6 +25,11 @@ public class LibroController {
         return repo.findById(id)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/autor/{autorId}")
+    public List<Libro> getByAutor(@PathVariable Long autorId) {
+        return repo.findByAutorId(autorId);
     }
 
     @PostMapping

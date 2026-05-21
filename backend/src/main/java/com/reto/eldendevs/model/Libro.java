@@ -1,5 +1,7 @@
 package com.reto.eldendevs.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,16 +23,18 @@ public class Libro {
     private String titulo;
 
     @Column(name="anio_publicacion")
-    private Integer aniopublicacion;
+    private Integer anioPublicacion;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="autor_id", nullable=false)
     private Autor autor;
 
-    public Libro(Long id, String titulo, Integer aniopublicacion, Autor autor) {
+    public Libro() {}
+
+    public Libro(Long id, String titulo, Integer anioPublicacion, Autor autor) {
         this.id = id;
         this.titulo = titulo;
-        this.aniopublicacion = aniopublicacion;
+        this.anioPublicacion = anioPublicacion;
         this.autor = autor;
     }
 
@@ -50,14 +54,15 @@ public class Libro {
         this.titulo = titulo;
     }
 
-    public Integer getAniopublicacion() {
-        return aniopublicacion;
+    public Integer getAnioPublicacion() {
+        return anioPublicacion;
     }
 
-    public void setAniopublicacion(Integer aniopublicacion) {
-        this.aniopublicacion = aniopublicacion;
+    public void setAnioPublicacion(Integer anioPublicacion) {
+        this.anioPublicacion = anioPublicacion;
     }
 
+    @JsonIgnore
     public Autor getAutor() {
         return autor;
     }
@@ -66,5 +71,11 @@ public class Libro {
         this.autor = autor;
     }
 
-    
+    public Long getAutorId() {
+        return autor != null ? autor.getId() : null;
+    }
+
+    public String getAutorNombre() {
+        return autor != null ? autor.getNombre() : null;
+    }
 }

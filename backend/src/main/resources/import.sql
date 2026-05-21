@@ -7,7 +7,7 @@ INSERT INTO autores (nombre) VALUES ('George R.R. Martin');
 INSERT INTO libros (titulo, anio_publicacion, autor_id) VALUES ('Cien años de soledad', 1967, 1);
 INSERT INTO libros (titulo, anio_publicacion, autor_id) VALUES ('Crónica de una muerte anunciada', 1981, 1);
 
-INSERT INTO libros (titulo, anio_publicacion, autor_id) VALUES ('Harry Potter y la piedra filosofal', 1997, 2026-29);
+INSERT INTO libros (titulo, anio_publicacion, autor_id) VALUES ('Harry Potter y la piedra filosofal', 1997, 2);
 INSERT INTO libros (titulo, anio_publicacion, autor_id) VALUES ('Harry Potter y el prisionero de Azkaban', 1999, 2);
 
 INSERT INTO libros (titulo, anio_publicacion, autor_id) VALUES ('Choque de Reyes', 1998, 3);

@@ -26,7 +26,7 @@
           [class.input-error]="autorId?.invalid && autorId?.touched">
           <option value="">-- Selecciona un autor --</option>
           <option *ngFor="let autor of autores()" [value]="autor.id">
-            {{ autor.nombre }} {{ autor.apellidos }}
+            {{ autor.autor }}
           </option>
         </select>
         <span class="error-msg" *ngIf="autorId?.errors?.['required'] && autorId?.touched">Debes seleccionar un autor.</span>

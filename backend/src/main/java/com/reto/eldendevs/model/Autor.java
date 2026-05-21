@@ -18,17 +18,17 @@ public class Autor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable=false)
-    private String nombre;
+    @Column(name="nombre", nullable=false)
+    private String autor;
 
     @OneToMany(mappedBy="autor", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Libro> libros;
 
     public Autor() {}
 
-    public Autor(Long id, String nombre, List<Libro> libros) {
+    public Autor(Long id, String autor, List<Libro> libros) {
         this.id = id;
-        this.nombre = nombre;
+        this.autor = autor;
         this.libros = libros;
     }
 
@@ -40,12 +40,12 @@ public class Autor {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getAutor() {
+        return autor;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 
     public List<Libro> getLibros() {

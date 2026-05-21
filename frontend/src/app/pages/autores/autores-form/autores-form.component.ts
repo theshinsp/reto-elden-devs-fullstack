@@ -12,12 +12,10 @@ import { AutorService } from '../../../services/autor.service';
 })
 export class AutoresFormComponent implements OnInit {
 
-  // ── Signals ──────────────────────────────────────────
   editando  = signal<boolean>(false);
   guardando = signal<boolean>(false);
   error     = signal<string>('');
 
-  // ── Formulario reactivo ──────────────────────────────
   form: FormGroup;
   private id: number | null = null;
 
@@ -27,11 +25,8 @@ export class AutoresFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    // Definir el formulario con validaciones
     this.form = this.fb.group({
-      nombre:       ['', [Validators.required, Validators.minLength(2)]],
-      apellidos:    ['', [Validators.required, Validators.minLength(2)]],
-      nacionalidad: ['', [Validators.required]]
+      autor: ['', [Validators.required, Validators.minLength(2)]]
     });
   }
 
@@ -42,7 +37,6 @@ export class AutoresFormComponent implements OnInit {
       this.editando.set(true);
       this.autorService.getById(this.id).subscribe({
         next: (autor) => {
-          // Rellenar el formulario con los datos existentes
           this.form.patchValue(autor);
         },
         error: () => {
@@ -52,13 +46,9 @@ export class AutoresFormComponent implements OnInit {
     }
   }
 
-  // Getters para acceder fácil a los campos en el HTML
-  get nombre()       { return this.form.get('nombre'); }
-  get apellidos()    { return this.form.get('apellidos'); }
-  get nacionalidad() { return this.form.get('nacionalidad'); }
+  get autor() { return this.form.get('autor'); }
 
   guardar(): void {
-    // Marcar todos los campos como tocados para mostrar errores
     this.form.markAllAsTouched();
 
     if (this.form.invalid) return;
@@ -73,7 +63,7 @@ export class AutoresFormComponent implements OnInit {
     operacion.subscribe({
       next:  () => { this.router.navigate(['/autores']); },
       error: () => {
-        this.error.set('Error al guardar. Comprueba la conexión con el backend.');
+        this.error.set('Error al guardar. Comprueba la conexion con el backend.');
         this.guardando.set(false);
       }
     });

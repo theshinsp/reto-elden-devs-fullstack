@@ -25,16 +25,24 @@ public class Libro {
     @Column(name="anio_publicacion")
     private Integer anioPublicacion;
 
+    @Column(nullable=false)
+    private String genero;
+
+    @Column(nullable=false)
+    private String isbn;
+
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="autor_id", nullable=false)
     private Autor autor;
 
     public Libro() {}
 
-    public Libro(Long id, String titulo, Integer anioPublicacion, Autor autor) {
+    public Libro(Long id, String titulo, Integer anioPublicacion, String genero, String isbn, Autor autor) {
         this.id = id;
         this.titulo = titulo;
         this.anioPublicacion = anioPublicacion;
+        this.genero = genero;
+        this.isbn = isbn;
         this.autor = autor;
     }
 
@@ -62,6 +70,22 @@ public class Libro {
         this.anioPublicacion = anioPublicacion;
     }
 
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
     @JsonIgnore
     public Autor getAutor() {
         return autor;
@@ -76,6 +100,6 @@ public class Libro {
     }
 
     public String getAutorNombre() {
-        return autor != null ? autor.getNombre() : null;
+        return autor != null ? autor.getAutor() : null;
     }
 }

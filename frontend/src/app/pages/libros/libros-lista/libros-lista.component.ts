@@ -57,7 +57,7 @@ export class LibrosListaComponent implements OnInit {
   // Método para obtener el nombre del autor a partir de su ID
   getNombreAutor(autorId: number): string {
     const autor = this.autores().find(a => a.id === autorId);
-    return autor ? `${autor.nombre} ${autor.apellidos}` : 'Desconocido';
+    return autor ? autor.autor : 'Desconocido';
   }
 
   eliminar(id: number): void {

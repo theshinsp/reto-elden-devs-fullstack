@@ -2,6 +2,15 @@
 
 Aplicación web de gestión de biblioteca con Angular 21 + Spring Boot 4 + H2.
 
+## Equipo
+
+| Nombre | Rol |
+|--------|-----|
+| **Shinsung Park** | Backend (Modelos + BD) |
+| **Razvan Crucinschi** | Backend (API REST) |
+| **Juan León Navarro** | Frontend (Estructura + Servicios) |
+| **Diego Campos Murillo** | Frontend (Componentes + Formularios) |
+
 ---
 
 ## Requisitos previos
@@ -123,3 +132,6 @@ El campo `nombre` en `Autor` se serializaba como `"nombre"` pero queríamos que 
 
 ### 8. Versiones de dependencias
 El proyecto fue generado con `start.spring.io` usando Spring Boot 4.0.6, que es una versión muy reciente con cambios respecto a versiones anteriores. Tuvimos que verificar que todas las dependencias en `pom.xml` fueran compatibles.
+
+### 9. Angular 19 a 21 — migración de dependencias
+El frontend se generó inicialmente con Angular 19, pero los requisitos pedían Angular 21. Al hacer `npm install @angular/core@21`, se producían conflictos porque `@angular-devkit/build-angular` (v19) seguía presente y no era compatible con Angular 21. Se solucionó eliminando `@angular-devkit/build-angular`, moviendo `@angular/build` a `devDependencies`, y actualizando el `angular.json` para usar los builders `@angular/build:application` y `@angular/build:dev-server` en lugar de los antiguos `@angular-devkit/build-angular:*`. Tras una instalación limpia, todas las dependencias quedaron en Angular 21.2.14.

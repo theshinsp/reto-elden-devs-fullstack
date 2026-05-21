@@ -6,10 +6,10 @@ Aplicación web de gestión de biblioteca con Angular 21 + Spring Boot 4 + H2.
 
 | Nombre | Rol |
 |--------|-----|
-| **Shinsung Park** | Backend (Modelos + BD) |
-| **Razvan Crucinschi** | Backend (API REST) |
-| **Juan León Navarro** | Frontend (Estructura + Servicios) |
-| **Diego Campos Murillo** | Frontend (Componentes + Formularios) |
+| **Juan León Navarro** | Backend (Modelos + BD) |
+| **Diego Campos Murillo** | Backend (API REST) |
+| **Shinsung Park** | Frontend (Estructura + Servicios) |
+| **Razvan Crucinschi** | Frontend (Componentes + Formularios) |
 
 ---
 

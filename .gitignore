@@ -30,3 +30,7 @@ frontend/.angular/
 
 # Variables de entorno
 .env
+
+# IDEs
+.vscode/
+.idea/

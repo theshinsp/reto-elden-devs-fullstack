@@ -53,9 +53,9 @@ Una vez arrancado el backend, acceder a:
 
 Al arrancar, se cargan automáticamente:
 
-- **Gabriel García Márquez** → *Cien años de soledad*, *Crónica de una muerte anunciada*
-- **J.K. Rowling** → *Harry Potter y la piedra filosofal*, *Harry Potter y el prisionero de Azkaban*
-- **George R.R. Martin** → *Choque de Reyes*
+- **Gabriel García Márquez** → *Cien años de soledad* (Realismo mágico), *Crónica de una muerte anunciada* (Novela)
+- **J.K. Rowling** → *Harry Potter y la piedra filosofal* (Fantasía), *Harry Potter y el prisionero de Azkaban* (Fantasía)
+- **George R.R. Martin** → *Choque de Reyes* (Fantasía épica)
 
 ---
 
@@ -95,3 +95,31 @@ curl http://localhost:8080/api/libros
 ```
 
 4. En el navegador, abrir `http://localhost:4200` — deberían aparecer los autores y libros cargados desde la base de datos H2.
+
+---
+
+## Dificultades encontradas y soluciones
+
+### 1. Base de datos H2 — desconocimiento inicial
+Al comenzar el proyecto no sabíamos cómo configurar H2. Solucionamos investigando la configuración en `application.yaml`, estableciendo correctamente las propiedades `spring.datasource.url`, `spring.h2.console.enabled` y `spring.jpa.hibernate.ddl-auto`.
+
+### 2. Arrancar el backend (Spring Boot + Maven)
+Tuvimos problemas al ejecutar el backend porque usábamos Java 8 y Spring Boot 4 requiere Java 21. La solución fue instalar JDK 21 y configurar `JAVA_HOME` apuntando a él antes de ejecutar `mvnw spring-boot:run`.
+
+### 3. Conexión frontend-backend (CORS)
+Al intentar que Angular (puerto 4200) consumiera la API de Spring Boot (puerto 8080), el navegador bloqueaba las peticiones por CORS. Lo solucionamos creando la clase `CorsConfig.java` que permite explícitamente el origen `http://localhost:4200`.
+
+### 4. Dependencias Spring Boot 4
+Spring Boot 4 (4.0.6) usa nombres de dependencias distintos a Spring Boot 3 (ej. `spring-boot-starter-webmvc` en lugar de `spring-boot-starter-web`). Tuvimos que ajustar el `pom.xml` para que Maven descargara las dependencias correctas.
+
+### 5. Import SQL con error de sintaxis
+En `import.sql`, un `autor_id` tenía el valor `2026-29` en lugar de `2`, lo que H2 interpretaba como una resta matemática. Se corrigió cambiando el valor al ID correcto del autor.
+
+### 6. Entidades JPA sin constructor vacío
+Hibernate requiere un constructor sin argumentos en las entidades. Las clases `Autor` y `Libro` no lo tenían, causando warnings. Se añadió `public Autor() {}` y `public Libro() {}`.
+
+### 7. Serialización JSON — nombre del campo
+El campo `nombre` en `Autor` se serializaba como `"nombre"` pero queríamos que apareciera como `"autor"` en el JSON. Renombramos el campo en Java a `autor` manteniendo la columna en base de datos como `nombre` mediante `@Column(name="nombre")`.
+
+### 8. Versiones de dependencias
+El proyecto fue generado con `start.spring.io` usando Spring Boot 4.0.6, que es una versión muy reciente con cambios respecto a versiones anteriores. Tuvimos que verificar que todas las dependencias en `pom.xml` fueran compatibles.

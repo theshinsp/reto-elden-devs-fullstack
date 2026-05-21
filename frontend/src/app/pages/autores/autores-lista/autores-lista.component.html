@@ -1,0 +1,55 @@
+<div class="container">
+
+  <!-- Alertas -->
+  <div *ngIf="mensaje()" class="alert alert-success">✅ {{ mensaje() }}</div>
+  <div *ngIf="error()"   class="alert alert-error">⚠️ {{ error() }}</div>
+
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <h2 class="page-title" style="margin:0;">✍️ Autores <span class="badge badge-blue">{{ totalAutores() }}</span></h2>
+      <a routerLink="/autores/nuevo" class="btn btn-primary">+ Nuevo Autor</a>
+    </div>
+
+    <!-- Cargando -->
+    <div *ngIf="cargando()" class="loading">Cargando autores...</div>
+
+    <!-- Sin datos -->
+    <div *ngIf="!cargando() && autores().length === 0" class="empty">
+      <span>📭</span>
+      <p>No hay autores registrados todavía.</p>
+      <a routerLink="/autores/nuevo" class="btn btn-primary" style="margin-top:16px;">+ Añadir el primero</a>
+    </div>
+
+    <!-- Tabla -->
+    <div *ngIf="!cargando() && autores().length > 0" class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Nacionalidad</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let autor of autores()">
+            <td style="color:#a0aec0; font-size:.85rem;">{{ autor.id }}</td>
+            <td><strong>{{ autor.nombre }}</strong></td>
+            <td>{{ autor.apellidos }}</td>
+            <td><span class="badge badge-blue">{{ autor.nacionalidad }}</span></td>
+            <td>
+              <div class="actions">
+                <a [routerLink]="['/autores/editar', autor.id]"
+                   class="btn btn-sm btn-secondary">Editar</a>
+                <button class="btn btn-danger"
+                        (click)="eliminar(autor.id!)">Eliminar</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

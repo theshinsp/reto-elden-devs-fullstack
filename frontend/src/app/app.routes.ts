@@ -1,29 +1,53 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'libros', pathMatch: 'full' },
+  // Redirige la raíz a autores
+  {
+    path: '',
+    redirectTo: 'autores',
+    pathMatch: 'full'
+  },
+
+  // ── Autores (lazy loading) ──────────────────────────
+  {
+    path: 'autores',
+    loadComponent: () =>
+      import('./pages/autores/autores-lista/autores-lista.component')
+        .then(m => m.AutoresListaComponent)
+  },
+  {
+    path: 'autores/nuevo',
+    loadComponent: () =>
+      import('./pages/autores/autores-form/autores-form.component')
+        .then(m => m.AutoresFormComponent)
+  },
+  {
+    path: 'autores/editar/:id',
+    loadComponent: () =>
+      import('./pages/autores/autores-form/autores-form.component')
+        .then(m => m.AutoresFormComponent)
+  },
+
+  // ── Libros (lazy loading) ───────────────────────────
   {
     path: 'libros',
-    loadComponent: () => import('./pages/libros/libros.component'),
+    loadComponent: () =>
+      import('./pages/libros/libros-lista/libros-lista.component')
+        .then(m => m.LibrosListaComponent)
   },
   {
     path: 'libros/nuevo',
-    loadComponent: () => import('./pages/libros/libro-form.component'),
+    loadComponent: () =>
+      import('./pages/libros/libros-form/libros-form.component')
+        .then(m => m.LibrosFormComponent)
   },
   {
-    path: 'libros/:id',
-    loadComponent: () => import('./pages/libros/libro-form.component'),
+    path: 'libros/editar/:id',
+    loadComponent: () =>
+      import('./pages/libros/libros-form/libros-form.component')
+        .then(m => m.LibrosFormComponent)
   },
-  {
-    path: 'categorias',
-    loadComponent: () => import('./pages/categorias/categorias.component'),
-  },
-  {
-    path: 'categorias/nueva',
-    loadComponent: () => import('./pages/categorias/categoria-form.component'),
-  },
-  {
-    path: 'categorias/:id',
-    loadComponent: () => import('./pages/categorias/categoria-form.component'),
-  },
+
+  // Ruta no encontrada
+  { path: '**', redirectTo: 'autores' }
 ];
